@@ -1,0 +1,8 @@
+to set the execution bit on a file from windows so it can run a .sh file on linux
+git update-index --chmod=+x path/to/file
+
+also need to:
+git add path/to/file
+git commit -m "message on commit"
+
+
