@@ -67,6 +67,11 @@ async def gamestats(ctx):
     # List comprehension of all the png files turned into discord file objects
     graphs = [discord.File('.//out//{}'.format(f)) for f in os.listdir('.//out') if f.endswith('png')]
     await ctx.send(files=graphs)
-
+@bot.command(name='listmaps', help='List all possible maps on the server')
+async def listmaps(ctx):
+    response ='Listing Maps...'
+    await ctx.send(response)
+    response ='this feature is WIP'
+    await ctx.send(response)
 bot.run(TOKEN)
 
