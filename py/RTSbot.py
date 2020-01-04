@@ -101,7 +101,6 @@ async def gamestats(ctx):
     
     os.remove(os.path.join(OUT_DIR, '0_Econ_Summary.png'))
     os.remove(os.path.join(OUT_DIR, '1_Military_Summary.png'))
-bot.run(TOKEN)
 
 
 @bot.command(name='listmaps', help='Show a list of available maps to play.')
@@ -127,3 +126,10 @@ async def currentmap(ctx):
     os.chdir(ACTIVE_DIR)
     await ctx.send('Map currently loaded for the server: {}'.format(os.listdir()[0]))
     os.chdir(WORKING_DIR)
+
+
+########################
+###   Main Program   ###
+########################
+if __name__ == "__main__":
+    bot.run(TOKEN)
