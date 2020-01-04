@@ -1,14 +1,18 @@
 import os
 import sys
 import discord
+import random
 from discord.ext import commands
+import gameStats
 
 from dotenv import load_dotenv
 
 import matplotlib.pyplot as plt
 import numpy as np
 
-
+############################
+###   Global Variables   ###
+############################
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
@@ -17,7 +21,16 @@ client = discord.Client()
 channel = client.get_channel(os.getenv('BOT_CHANNEL'))
 bot = commands.Bot(command_prefix='!')
 
+WORKING_DIR = os.getcwd()
+OUT_DIR = os.path.join('.', 'out')
+MAP_DIR = os.path.join('..', '..', 'maps')
+ACTIVE_DIR = os.path.join('..', 'activemap')
 
+
+
+########################
+###   Bot Commands   ###
+########################
 @bot.command(name='nickelback', help='Better than a photograph...')
 async def nickel(ctx):
     response = 'Look at this graph!'
@@ -33,45 +46,84 @@ async def nickel(ctx):
     ax.set(xlabel='time (s)', ylabel='voltage (mV)',
         title='About as simple as it gets, folks')
     ax.grid()
-    fig.savefig('.//out//temp.png')
+    fig.savefig(os.path.join(OUT_DIR, 'temp.png'))
     
-    with open('.//out//temp.png', 'rb') as fp:
+    with open(os.path.join(OUT_DIR, 'temp.png'), 'rb') as fp:
         await ctx.send(file=discord.File(fp, 'new_filename.png'))
 
-    os.remove('.//out//temp.png')
+    os.remove(os.path.join(OUT_DIR, 'temp.png'))
 
 
 @bot.command(name='gamestats', help='Creates game statistics based off the latest.log file.')
 async def gamestats(ctx):
-    response = 'Gotcha, Chief! Just a minute here...'
+    '''
+    This function returns a witty respone to notify the user that it's working,
+    then processes the latest log file and sends the graphs over chat.
+    '''
+    responses = ['Gotcha, Chief! Just a minute here...',
+                 'Processing. Please wait...',
+                 'Oof, I actually have to do something now. Hang on...',
+                 'You want me to do WHAT? ...Oo, I misheard you. Sure thing, just a sec...',
+                 'Upgrading Windows, your PC will restart several times. Sit back and relax...',
+                 'Would you like fries with that? They\'re still cooking...',
+                 'Hum something loud while others stare',
+                 'I need a sec, but it\'s still faster than you could draw it!',
+                ]
+    response = random.choice(responses)
     await ctx.send(response)
 
-    import gameStats
     ecodat, builddat, unitdat = gameStats.readGameLog(gameStats.file)
 
     for team in ['red', 'blue', 'yellow', 'green']:
         if gameStats.wasInMatch(ecodat, team):
             fig, ax = gameStats.teamResourcePlot(ecodat, team=team, p=True)
-            fig.savefig('.//out//{}_Resources.png'.format(team))
+            fig.savefig(os.path.join(OUT_DIR, '{}_Resources.png'.format(team)))
+            
 
             fig, ax = gameStats.teamTroopPlot(unitdat, team=team)
-            fig.savefig('.//out//{}_Troops.png'.format(team))
+            fig.savefig(os.path.join(OUT_DIR, '{}_Troops.png'.format(team)))
 
         
     fig, ax = gameStats.ecoIndexPlot(ecodat)
-    fig.savefig('.//out//0_Econ_Summary.png')
+    fig.savefig(os.path.join(OUT_DIR, '0_Econ_Summary.png'))
 
     fig, ax = gameStats.troopIndexPlot(unitdat)
-    fig.savefig('.//out//1_Military_Summary.png')
+    fig.savefig(os.path.join(OUT_DIR, '1_Military_Summary.png'))
     
     # List comprehension of all the png files turned into discord file objects
-    graphs = [discord.File('.//out//{}'.format(f)) for f in os.listdir('.//out') if f.endswith('png')]
+    graphs = [discord.File(os.path.join(OUT_DIR, '{}'.format(f))) for f in os.listdir(os.path.join(OUT_DIR)) if f.endswith('png')]
     await ctx.send(files=graphs)
-@bot.command(name='listmaps', help='List all possible maps on the server')
-async def listmaps(ctx):
-    response ='Listing Maps...'
-    await ctx.send(response)
-    response ='this feature is WIP'
-    await ctx.send(response)
+
+    # Clean up the files after we send them in Discord.
+    for team in ['red', 'blue', 'yellow', 'green']:
+        os.remove(os.path.join(OUT_DIR, '{}_Resources.png'.format(team)))
+        os.remove(os.path.join(OUT_DIR, '{}_Troops.png'.format(team)))
+    
+    os.remove(os.path.join(OUT_DIR, '0_Econ_Summary.png'))
+    os.remove(os.path.join(OUT_DIR, '1_Military_Summary.png'))
 bot.run(TOKEN)
 
+
+@bot.command(name='listmaps', help='Show a list of available maps to play.')
+async def listmaps(ctx):
+    '''This function returns a list of the current available maps to chat.'''
+    os.chdir(MAP_DIR)
+    response = ''
+    for folder in os.listdir():
+        response += '{}\n'.format(folder)
+
+    await ctx.send(response)
+    os.chdir(WORKING_DIR)
+
+
+@bot.command(name='currentmap', help='Information about the currently loaded map.')
+async def currentmap(ctx):
+    '''
+    This functions main purpose is to send back the image for the current map.
+    This image shows an overview of the map layout and where resource nodes are.
+    The image must be created by the map-maker and provided to the server admin.
+    Save the image inside the map source folder (by default: serverdir/maps)
+    '''
+    os.chdir(ACTIVE_DIR)
+    await ctx.send('Map currently loaded for the server: {}'.format(os.listdir()[0]))
+    os.chdir(WORKING_DIR)
