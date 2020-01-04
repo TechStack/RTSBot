@@ -101,7 +101,6 @@ async def gamestats(ctx):
     
     os.remove(os.path.join(OUT_DIR, '0_Econ_Summary.png'))
     os.remove(os.path.join(OUT_DIR, '1_Military_Summary.png'))
-
 bot.run(TOKEN)
 
 
