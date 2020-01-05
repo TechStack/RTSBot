@@ -124,7 +124,14 @@ async def currentmap(ctx):
     Save the image inside the map source folder (by default: serverdir/maps)
     '''
     os.chdir(ACTIVE_DIR)
-    await ctx.send('Map currently loaded for the server: {}'.format(os.listdir()[0]))
+    with open(os.path.join(ACTIVE_DIR, 'description.txt')) as f:
+        response = ''
+        for line in f.readlines():
+            response += line
+            response += '\n'
+
+    await ctx.send('Map currently loaded for the server: ')
+    await ctx.send(response)
     os.chdir(WORKING_DIR)
 
 
