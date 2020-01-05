@@ -70,18 +70,18 @@ def readGameLog(file):
     logging.info('Econ: \n{}'.format(ecodat.dtypes))
 
     builddat = data.append(temp2)
-    builddat.Time = pd.to_datetime(builddat.Time)
-    # builddat.Time = builddat.Time.time()
-    builddat.columns = ['Timestamp', 'Team', 'Archery Range' , 'Armory' , 'Barracks' , 'Farms' , 'Gates' , 'LumberYard' ,
+    builddat.columns = ['Time', 'Team', 'Archery Range' , 'Armory' , 'Barracks' , 'Farms' , 'Gates' , 'LumberYard' ,
                         'Diamond Mine' , 'Emerald Mine' ,  'Gold Mine' , 'Iron Mine' ,  'Stone Mine' ,
                         'ResearchCenter' , 'Siege Workshop' , 'Stables' , 'TownHalls' , 'Walls' , 'Wallsteps' , 'Watchtowers']
+    builddat.Time = pd.to_datetime(builddat.Time)
+    # builddat.Time = builddat.Time.time()
     logging.info('Buildings: \n{}'.format(builddat.dtypes))
 
 
     unitdat = data.append(temp3)
+    unitdat.columns = ['Time', 'Team', 'Minion', 'Archer', 'Lancer', 'Pikeman', 'Trebuchet', 'Knight', 'Paladin']
     unitdat.Time = pd.to_datetime(unitdat.Time)
     # unitdat.Time = unitdat.Time.time()
-    unitdat.columns = ['Time', 'Team', 'Minion', 'Archer', 'Lancer', 'Pikeman', 'Trebuchet', 'Knight', 'Paladin']
     unitdat.Team = unitdat.Team.astype(str)
     unitdat[['Minion', 'Archer',
              'Lancer', 'Pikeman',
