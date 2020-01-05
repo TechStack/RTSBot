@@ -61,7 +61,7 @@ def readGameLog(file):
 
 
     ecodat.Time = pd.to_datetime(ecodat.Time)
-    # ecodat.Time = ecodat.Time.time()
+    ecodat.Time = ecodat.Time.apply(lambda x: x.time())
     ecodat.Team = ecodat.Team.astype(str)
     ecodat[['Food_Prod', 'Lumber_Prod', 'Stone_Prod', 'Iron_Prod']] = ecodat[['Food_Prod', 'Lumber_Prod', 'Stone_Prod', 'Iron_Prod']].astype(int)
     ecodat[['Gold_Prod', 'Diamond_Prod', 'Emerald_Prod']] = ecodat[['Gold_Prod', 'Diamond_Prod', 'Emerald_Prod']].astype(int)
@@ -74,14 +74,14 @@ def readGameLog(file):
                         'Diamond Mine' , 'Emerald Mine' ,  'Gold Mine' , 'Iron Mine' ,  'Stone Mine' ,
                         'ResearchCenter' , 'Siege Workshop' , 'Stables' , 'TownHalls' , 'Walls' , 'Wallsteps' , 'Watchtowers']
     builddat.Time = pd.to_datetime(builddat.Time)
-    # builddat.Time = builddat.Time.time()
+    builddat.Time = builddat.Time.apply(lambda x: x.time())
     logging.info('Buildings: \n{}'.format(builddat.dtypes))
 
 
     unitdat = data.append(temp3)
     unitdat.columns = ['Time', 'Team', 'Minion', 'Archer', 'Lancer', 'Pikeman', 'Trebuchet', 'Knight', 'Paladin']
     unitdat.Time = pd.to_datetime(unitdat.Time)
-    # unitdat.Time = unitdat.Time.time()
+    unitdat.Time = unitdat.Time.apply(lambda x: x.time())
     unitdat.Team = unitdat.Team.astype(str)
     unitdat[['Minion', 'Archer',
              'Lancer', 'Pikeman',
@@ -173,7 +173,7 @@ def ecoIndexPlot(df, w=[1, 1.2, 0.7, 0.85, 1.35]):
 
     ax.legend()
     ax.set_title('Economic Power', fontsize=24)
-    ax.text(0.005, 0.005, s='weights={}'.format(w), transform=ax.transAxes)
+    ax.text(0.005, 0.01, s='weights={}'.format(w), transform=ax.transAxes)
     ax.xaxis.set_major_locator(matplotlib.ticker.MultipleLocator(0.003))
     ax.xaxis.set_minor_locator(matplotlib.ticker.MultipleLocator(0.0003))
     
@@ -227,7 +227,7 @@ def troopIndexPlot(df, w=[1, 1, 1, 1, 0, 1, 1]):
 
     ax.legend()
     ax.set_title('Military Power', fontsize=24)
-    ax.text(0.005, 0.005, s='weights={}'.format(w), transform=ax.transAxes)
+    ax.text(0.005, 0.01, s='weights={}'.format(w), transform=ax.transAxes)
     ax.xaxis.set_major_locator(matplotlib.ticker.MultipleLocator(0.003))
     ax.xaxis.set_minor_locator(matplotlib.ticker.MultipleLocator(0.0003))
     
@@ -250,20 +250,20 @@ if __name__ == "__main__":
 
     ecodat, builddat, unitdat = readGameLog(file)
 
-    for team in ['red', 'blue', 'yellow', 'green']:
-        if wasInMatch(ecodat, team):
-            fig, ax = teamResourcePlot(ecodat, team=team, p=True)
-            fig.savefig(os.path.join('.', 'out', '{}_Resources.png'.format(team)))
+    # for team in ['red', 'blue', 'yellow', 'green']:
+    #     if wasInMatch(ecodat, team):
+    #         fig, ax = teamResourcePlot(ecodat, team=team, p=True)
+    #         fig.savefig(os.path.join('.', 'out', '{}_Resources.png'.format(team)))
 
-            fig, ax = teamTroopPlot(unitdat, team=team)
-            fig.savefig(os.path.join('.', 'out', '{}_Troops.png'.format(team)))
+    #         fig, ax = teamTroopPlot(unitdat, team=team)
+    #         fig.savefig(os.path.join('.', 'out', '{}_Troops.png'.format(team)))
 
         
-    fig, ax = ecoIndexPlot(ecodat)
-    fig.savefig(os.path.join('.', 'out', 'Econ_Summary.png'))
+    # fig, ax = ecoIndexPlot(ecodat)
+    # fig.savefig(os.path.join('.', 'out', 'Econ_Summary.png'))
 
-    fig, ax = troopIndexPlot(unitdat)
-    fig.savefig(os.path.join('.', 'out', 'Military_Summary.png'))
+    # fig, ax = troopIndexPlot(unitdat)
+    # fig.savefig(os.path.join('.', 'out', 'Military_Summary.png'))
 
 
 
