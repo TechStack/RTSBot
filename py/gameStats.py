@@ -61,7 +61,7 @@ def readGameLog(file):
 
 
     ecodat.Time = pd.to_datetime(ecodat.Time)
-    ecodat.Time = ecodat.Time.time()
+    # ecodat.Time = ecodat.Time.time()
     ecodat.Team = ecodat.Team.astype(str)
     ecodat[['Food_Prod', 'Lumber_Prod', 'Stone_Prod', 'Iron_Prod']] = ecodat[['Food_Prod', 'Lumber_Prod', 'Stone_Prod', 'Iron_Prod']].astype(int)
     ecodat[['Gold_Prod', 'Diamond_Prod', 'Emerald_Prod']] = ecodat[['Gold_Prod', 'Diamond_Prod', 'Emerald_Prod']].astype(int)
@@ -71,7 +71,7 @@ def readGameLog(file):
 
     builddat = data.append(temp2)
     builddat.Time = pd.to_datetime(builddat.Time)
-    builddat.Time = builddat.Time.time()
+    # builddat.Time = builddat.Time.time()
     builddat.columns = ['Timestamp', 'Team', 'Archery Range' , 'Armory' , 'Barracks' , 'Farms' , 'Gates' , 'LumberYard' ,
                         'Diamond Mine' , 'Emerald Mine' ,  'Gold Mine' , 'Iron Mine' ,  'Stone Mine' ,
                         'ResearchCenter' , 'Siege Workshop' , 'Stables' , 'TownHalls' , 'Walls' , 'Wallsteps' , 'Watchtowers']
@@ -80,7 +80,7 @@ def readGameLog(file):
 
     unitdat = data.append(temp3)
     unitdat.Time = pd.to_datetime(unitdat.Time)
-    unitdat.Time = unitdat.Time.time()
+    # unitdat.Time = unitdat.Time.time()
     unitdat.columns = ['Time', 'Team', 'Minion', 'Archer', 'Lancer', 'Pikeman', 'Trebuchet', 'Knight', 'Paladin']
     unitdat.Team = unitdat.Team.astype(str)
     unitdat[['Minion', 'Archer',
