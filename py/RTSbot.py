@@ -24,7 +24,7 @@ bot = commands.Bot(command_prefix='!')
 WORKING_DIR = os.getcwd()
 OUT_DIR = os.path.join('.', 'out')
 MAP_DIR = os.path.join('..', '..', 'maps')
-ACTIVE_DIR = os.path.join('..', 'activemap')
+ACTIVE_DIR = os.path.join('..', '..', 'activemap')
 
 
 
