@@ -5,6 +5,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
+import matplotlib.dates as mdates
 import pandas as pd
 import os
 import sys
@@ -135,12 +136,12 @@ def teamResourcePlot(df, team='red', p=True):
         ax1.set_title('{} Team Resources\n'.format(team.title()), fontsize=24)
         ax1.set_xlabel(None)
         
-        ax1.xaxis.set_major_locator(matplotlib.ticker.MultipleLocator(0.003))
-        ax2.xaxis.set_major_locator(matplotlib.ticker.MultipleLocator(0.003))
-        
-        ax1.xaxis.set_minor_locator(matplotlib.ticker.MultipleLocator(0.0003))
-        ax2.xaxis.set_minor_locator(matplotlib.ticker.MultipleLocator(0.0003))
-        
+        ax1.xaxis.set_major_locator(mdates.MinuteLocator(interval=10))      # Major tick every 10 mins
+        ax2.xaxis.set_major_locator(mdates.MinuteLocator(interval=10))      # Major tick every 10 mins
+       
+        ax1.xaxis.set_minor_locator(mdates.MinuteLocator(interval=1))       # Minor tick every minute
+        ax2.xaxis.set_minor_locator(mdates.MinuteLocator(interval=1))       # Minor tick every minute
+       
         ax2.set_title('Production Rates')
 
     else:
@@ -174,8 +175,8 @@ def ecoIndexPlot(df, w=[1, 1.2, 0.7, 0.85, 1.35]):
     ax.legend()
     ax.set_title('Economic Power', fontsize=24)
     ax.text(0.005, 0.01, s='weights={}'.format(w), transform=ax.transAxes)
-    ax.xaxis.set_major_locator(matplotlib.ticker.MultipleLocator(0.003))
-    ax.xaxis.set_minor_locator(matplotlib.ticker.MultipleLocator(0.0003))
+    ax.xaxis.set_major_locator(mdates.MinuteLocator(interval=10))      # Major tick every 10 mins
+    ax.xaxis.set_minor_locator(mdates.MinuteLocator(interval=1))       # Minor tick every minute
     
     return fig, ax
 
@@ -198,8 +199,8 @@ def teamTroopPlot(df, team='red'):
     ax.set_title('{} Team Troops\n'.format(team.title()), fontsize=24)
     ax.set_xlabel(None)
 
-    ax.xaxis.set_major_locator(matplotlib.ticker.MultipleLocator(0.003))
-    ax.xaxis.set_minor_locator(matplotlib.ticker.MultipleLocator(0.0003))
+    ax.xaxis.set_major_locator(mdates.MinuteLocator(interval=10))      # Major tick every 10 mins
+    ax.xaxis.set_minor_locator(mdates.MinuteLocator(interval=1))       # Minor tick every minute
     
     return fig, ax
 
@@ -228,8 +229,8 @@ def troopIndexPlot(df, w=[1, 1, 1, 1, 0, 1, 1]):
     ax.legend()
     ax.set_title('Military Power', fontsize=24)
     ax.text(0.005, 0.01, s='weights={}'.format(w), transform=ax.transAxes)
-    ax.xaxis.set_major_locator(matplotlib.ticker.MultipleLocator(0.003))
-    ax.xaxis.set_minor_locator(matplotlib.ticker.MultipleLocator(0.0003))
+    ax.xaxis.set_major_locator(mdates.MinuteLocator(interval=10))      # Major tick every 10 mins
+    ax.xaxis.set_minor_locator(mdates.MinuteLocator(interval=1))       # Minor tick every minute)
     
     return fig, ax
 
