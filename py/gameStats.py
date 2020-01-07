@@ -139,8 +139,8 @@ def teamResourcePlot(df, team='red', p=True):
         ax1.xaxis.set_major_formatter(matplotlib.dates.DateFormatter('%H:%M:%S'))
         ax2.xaxis.set_major_locator(matplotlib.ticker.LinearLocator(numticks=10))      # 10 major ticks overall
        
-        ax1.xaxis.set_minor_locator(matplotlib.ticker.AutoMinorLocater())
-        ax2.xaxis.set_minor_locator(matplotlib.ticker.AutoMinorLocater())
+        ax1.xaxis.set_minor_locator(matplotlib.ticker.AutoMinorLocator())
+        ax2.xaxis.set_minor_locator(matplotlib.ticker.AutoMinorLocator())
 
         ax1.grid(alpha=0.3, linestyle=':', linewidth=3)
        
