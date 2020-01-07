@@ -136,13 +136,15 @@ def teamResourcePlot(df, team='red', p=True):
         ax1.set_xlabel(None)
         
         ax1.xaxis.set_major_locator(matplotlib.ticker.LinearLocator(numticks=10))      # 10 major ticks overall
-        ax1.xaxis.set_major_formatter(matplotlib.dates.DateFormatter('%H:%M:%S'))
         ax2.xaxis.set_major_locator(matplotlib.ticker.LinearLocator(numticks=10))      # 10 major ticks overall
        
         ax1.xaxis.set_minor_locator(matplotlib.ticker.AutoMinorLocator())
         ax2.xaxis.set_minor_locator(matplotlib.ticker.AutoMinorLocator())
+        
+        ax1.xaxis.set_major_formatter(matplotlib.dates.DateFormatter('%H:%M:%S'))
+        ax2.xaxis.set_major_formatter(matplotlib.dates.DateFormatter('%H:%M:%S'))
 
-        ax1.grid(alpha=0.3, linestyle=':', linewidth=3)
+        ax1.grid(alpha=0.3, linestyle=':', linewidth=1.5)
        
         ax2.set_title('Production Rates')
 
@@ -179,6 +181,8 @@ def ecoIndexPlot(df, w=[1, 1.2, 0.7, 0.85, 1.35]):
     ax.text(0.005, 0.3, s='weights={}'.format(w), transform=ax.transAxes)
     ax.xaxis.set_major_locator(matplotlib.ticker.LinearLocator(numticks=10))      # 10 major ticks overall
     ax.xaxis.set_minor_locator(matplotlib.ticker.AutoMinorLocator())
+    ax.xaxis.set_major_formatter(matplotlib.dates.DateFormatter('%H:%M:%S'))
+    ax.grid(alpha=0.3, linestyle=':', linewidth=1.5)
     
     return fig, ax
 
@@ -203,6 +207,8 @@ def teamTroopPlot(df, team='red'):
 
     ax.xaxis.set_major_locator(matplotlib.ticker.LinearLocator(numticks=10))      # 10 major ticks overall
     ax.xaxis.set_minor_locator(matplotlib.ticker.AutoMinorLocator())
+    ax.xaxis.set_major_formatter(matplotlib.dates.DateFormatter('%H:%M:%S'))
+    ax.grid(alpha=0.3, linestyle=':', linewidth=1.5)
     
     return fig, ax
 
@@ -233,6 +239,8 @@ def troopIndexPlot(df, w=[1, 1, 1, 1, 0, 1, 1]):
     ax.text(0.005, 0.3, s='weights={}'.format(w), transform=ax.transAxes)
     ax.xaxis.set_major_locator(matplotlib.ticker.LinearLocator(numticks=10))      # 10 major ticks overall
     ax.xaxis.set_minor_locator(matplotlib.ticker.AutoMinorLocator())
+    ax.xaxis.set_major_formatter(matplotlib.dates.DateFormatter('%H:%M:%S'))
+    ax.grid(alpha=0.3, linestyle=':', linewidth=1.5)
     
     return fig, ax
 
