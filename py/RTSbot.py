@@ -96,8 +96,9 @@ async def gamestats(ctx):
 
     # Clean up the files after we send them in Discord.
     for team in ['red', 'blue', 'yellow', 'green']:
-        os.remove(os.path.join(OUT_DIR, '{}_Resources.png'.format(team)))
-        os.remove(os.path.join(OUT_DIR, '{}_Troops.png'.format(team)))
+        if gameStats.wasInMatch(ecodat, team):
+            os.remove(os.path.join(OUT_DIR, '{}_Resources.png'.format(team)))
+            os.remove(os.path.join(OUT_DIR, '{}_Troops.png'.format(team)))
     
     os.remove(os.path.join(OUT_DIR, '0_Econ_Summary.png'))
     os.remove(os.path.join(OUT_DIR, '1_Military_Summary.png'))
