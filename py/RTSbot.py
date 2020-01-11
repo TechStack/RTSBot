@@ -1,5 +1,6 @@
 import os
 import sys
+import traceback
 import discord
 import random
 from discord.ext import commands
@@ -31,6 +32,13 @@ ACTIVE_DIR = os.path.join('..', '..', 'activemap')
 ########################
 ###   Bot Commands   ###
 ########################
+@bot.event
+async def on_error(event, *args, **kwargs):
+    message = args[0] #Gets the message object
+    ctx.send(message)
+    ctx.send(traceback.format_exc())
+
+
 @bot.command(name='nickelback', help='Better than a photograph...')
 async def nickel(ctx):
     response = 'Look at this graph!'
@@ -72,7 +80,11 @@ async def gamestats(ctx):
     response = random.choice(responses)
     await ctx.send(response)
 
-    ecodat, builddat, unitdat = gameStats.readGameLog(gameStats.file)
+    try:
+        ecodat, builddat, unitdat = gameStats.readGameLog(gameStats.file)
+    except:
+        ctx.send('Something went wrong...')
+        return None
 
     for team in ['red', 'blue', 'yellow', 'green']:
         if gameStats.wasInMatch(ecodat, team):
