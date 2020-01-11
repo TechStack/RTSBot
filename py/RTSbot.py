@@ -147,7 +147,7 @@ async def currentmap(ctx):
     await ctx.send(response)
     try:
         img = discord.File('map.png')
-        await ctx.send(img)
+        await ctx.send(file=img)
     except:
         await ctx.send('No map.png found!')
     os.chdir(WORKING_DIR)
