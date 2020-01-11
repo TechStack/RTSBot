@@ -32,11 +32,11 @@ ACTIVE_DIR = os.path.join('..', '..', 'activemap')
 ########################
 ###   Bot Commands   ###
 ########################
-@bot.event
+@client.event
 async def on_error(event, *args, **kwargs):
     message = args[0] #Gets the message object
-    ctx.send(message)
-    ctx.send(traceback.format_exc())
+    await event.channel.send(message)
+    await event.channel.send(traceback.format_exc())
 
 
 @bot.command(name='nickelback', help='Better than a photograph...')
