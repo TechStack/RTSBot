@@ -245,7 +245,7 @@ def troopIndexPlot(df, w=[1, 1, 1, 1, 0, 1, 1]):
     ax.text(0.005, 0.3, s='weights={}'.format(w), transform=ax.transAxes)
     ax.xaxis.set_major_locator(matplotlib.ticker.LinearLocator(numticks=10))      # 10 major ticks overall
     ax.xaxis.set_minor_locator(matplotlib.ticker.AutoMinorLocator())
-    # ax.xaxis.set_major_formatter(matplotlib.dates.DateFormatter('%H:%M:%S'))
+    ax.xaxis.set_major_formatter(matplotlib.dates.DateFormatter('%H:%M:%S'))
     ax.grid(alpha=0.3, linestyle=':', linewidth=1.5)
     ax.grid(alpha=0.5, linestyle=':', linewidth=1.25, which='minor')
     
