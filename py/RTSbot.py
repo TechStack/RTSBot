@@ -32,7 +32,7 @@ ACTIVE_DIR = os.path.join('..', '..', 'activemap')
 ########################
 ###   Bot Commands   ###
 ########################
-@client.event
+@bot.event
 async def on_error(event, *args, **kwargs):
     message = args[0] #Gets the message object
     await event.channel.send(message)
@@ -145,6 +145,11 @@ async def currentmap(ctx):
 
     await ctx.send('Map currently loaded for the server: ')
     await ctx.send(response)
+    try:
+        img = discord.File('map.png')
+        await ctx.send(img)
+    except:
+        await ctx.send('No map.png found!')
     os.chdir(WORKING_DIR)
 
 
