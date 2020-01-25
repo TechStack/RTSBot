@@ -82,8 +82,10 @@ async def gamestats(ctx):
 
     try:
         ecodat, builddat, unitdat = gameStats.readGameLog(gameStats.file)
-    except:
+    except Exception as err:
         await ctx.send('Something went wrong...')
+        await ctx.send(type(err))
+        await ctx.send(err)
         return None
 
     for team in ['red', 'blue', 'yellow', 'green']:
