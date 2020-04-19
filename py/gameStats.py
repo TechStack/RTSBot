@@ -48,8 +48,10 @@ def readGameLog(file):
                 temp3.append(cache3.split(sep=','))
             # At the beginning of the match, each player joins a team
             # TODO: Grab the player names in the match.
-
-                
+            elif 'BUILDINGSTATS-HEADER:' in line:
+                building_columns = line.split(sep='HEADER:')[1].split(sep=',')
+            elif 'UNITSTATUS-HEADER:' in line:
+                units_columns = line.split(sep='HEADER:')[1].split(sep=',')
                 
                 
                 
@@ -70,24 +72,22 @@ def readGameLog(file):
     logging.info('Econ: \n{}'.format(ecodat.dtypes))
 
     builddat = data.append(temp2)
-    builddat.columns = ['Time', 'Team', 'Archery Range' , 'Armory' , 'Barracks' , 'Farms' , 'Gates' , 'LumberYard' ,
-                        'Diamond Mine' , 'Emerald Mine' ,  'Gold Mine' , 'Iron Mine' ,  'Stone Mine' ,
-                        'ResearchCenter' , 'Siege Workshop' , 'Stables' , 'TownHalls' , 'Walls' , 'Wallsteps' , 'Watchtowers']
+    builddat.columns = building_columns
     builddat.Time = pd.to_datetime(builddat.Time)
     builddat.Time = builddat.Time.apply(lambda x: x.time())
     logging.info('Buildings: \n{}'.format(builddat.dtypes))
 
 
     unitdat = data.append(temp3)
-    unitdat.columns = ['Time', 'Team', 'Minion', 'Archer', 'Lancer', 'Pikeman', 'Trebuchet', 'Knight', 'Paladin']
+    unitdat.columns = units_columns
     unitdat.Time = pd.to_datetime(unitdat.Time)
     unitdat.Time = unitdat.Time.apply(lambda x: x.time())
     unitdat.Team = unitdat.Team.astype(str)
     unitdat[['Minion', 'Archer',
              'Lancer', 'Pikeman',
-             'Trebuchet', 'Knight', 'Paladin']] = unitdat[['Minion', 'Archer',
+             'Trebuchet', 'Knight', 'Advanced Knight']] = unitdat[['Minion', 'Archer',
                                                            'Lancer', 'Pikeman',
-                                                           'Trebuchet', 'Knight', 'Paladin']].astype(int)
+                                                           'Trebuchet', 'Knight', 'Advanced Knight']].astype(int)
     logging.info('Troops: \n{}'.format(ecodat.dtypes))
 
     return ecodat, builddat, unitdat
