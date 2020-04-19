@@ -75,16 +75,16 @@ def readGameLog(file):
 
     builddat = data.append(temp2)
     builddat.columns = building_columns
-    builddat.Time = pd.to_datetime(builddat.Time)
-    builddat.Time = builddat.Time.apply(lambda x: x.time())
+    builddat[0] = pd.to_datetime(builddat[0])
+    builddat[0] = builddat[0].apply(lambda x: x.time())
     logging.info('Buildings: \n{}'.format(builddat.dtypes))
 
 
     unitdat = data.append(temp3)
     unitdat.columns = units_columns
-    unitdat.Time = pd.to_datetime(unitdat.Time)
-    unitdat.Time = unitdat.Time.apply(lambda x: x.time())
-    unitdat.Team = unitdat.Team.astype(str)
+    unitdat[0] = pd.to_datetime(unitdat[0])
+    unitdat[0] = unitdat[0].apply(lambda x: x.time())
+    unitdat[0] = unitdat.Team.astype(str)
     unitdat[['Minion', 'Archer',
              'Lancer', 'Pikeman',
              'Trebuchet', 'Knight', 'Advanced Knight']] = unitdat[['Minion', 'Archer',
