@@ -31,6 +31,8 @@ def readGameLog(file):
     temp1 = []
     temp2 = []
     temp3 = []
+    building_columns = []
+    units_columns = []
     with open(file) as f:
         for line in f.readlines():
             # If it's a line with eco stat data (they are all flagged)
