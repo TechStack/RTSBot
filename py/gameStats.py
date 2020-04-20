@@ -206,7 +206,7 @@ def teamTroopPlot(df, team='red'):
     df.set_index(df.Timestamp, inplace=True)
     
     fig, ax = plt.subplots(figsize=(19,7))
-    ax = df.plot(ax=ax, y=['Minion', 'Archer', 'Lancer', 'Pikeman', 'Trebuchet', 'Knight', 'Paladin'],
+    ax = df.plot(ax=ax, y=['Minion', 'Archer', 'Lancer', 'Pikeman', 'Trebuchet', 'Knight', 'Advanced Knight'],
                  color=['brown', 'red', 'g', 'k', 'gold', 'grey', 'cyan'])
     
     ax.set_title('{} Team Troops\n'.format(team.title()), fontsize=24)
@@ -231,7 +231,7 @@ def troopIndexPlot(df, w=[1, 1, 1, 1, 0, 1, 1]):
     df['Power'] = w[0]*df.Minion + w[1]*df.Archer +         \
                   w[2]*df.Lancer + w[3]*df.Pikeman +        \
                   w[4]*df.Trebuchet +                       \
-                  w[5]*df.Knight + w[6]*df.Paladin
+                  w[5]*df.Knight + w[6]*df['Advanced Knight']
     df.set_index(df.Timestamp, inplace=True)
 
     # initiate the plot
