@@ -155,6 +155,31 @@ async def currentmap(ctx):
     os.chdir(WORKING_DIR)
 
 
+async def loadmap(name):
+    '''
+    This function clears the load slot and copies the map folder provided over, instead.
+    This function is called after the "votemap" function is complete, and cannot be
+    called by chat users.
+    '''
+    pass
+
+
+@bot.command(name='votemap', help='Vote on which map to play next.')
+async def votemap(ctx):
+    '''
+    This function initiates a vote on the map to be loaded onto the server.
+
+    Voting is conducted with message responses.
+    Voting is limited to 11 maps (discord only has 0-10 emojis)
+    '''
+    os.chdir(MAP_DIR)
+
+    await ctx.send('Respond to this message with your vote, via the appropriate emoji! Other emojis won\'t count!')
+    await ctx.send('Sorry...Map-voting is currently unavailable, please be patient.')
+
+    os.chdir(WORKING_DIR)
+
+
 ########################
 ###   Main Program   ###
 ########################

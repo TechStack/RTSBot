@@ -75,16 +75,16 @@ def readGameLog(file):
 
     builddat = data.append(temp2)
     builddat.columns = building_columns
-    builddat[0] = pd.to_datetime(builddat[0])
-    builddat[0] = builddat[0].apply(lambda x: x.time())
+    builddat.Timestamp = pd.to_datetime(builddat.Timestamp)
+    builddat.Timestamp = builddat.Timestamp.apply(lambda x: x.time())
     logging.info('Buildings: \n{}'.format(builddat.dtypes))
 
 
     unitdat = data.append(temp3)
     unitdat.columns = units_columns
-    unitdat[0] = pd.to_datetime(unitdat[0])
-    unitdat[0] = unitdat[0].apply(lambda x: x.time())
-    unitdat[0] = unitdat.Team.astype(str)
+    unitdat.Timestamp = pd.to_datetime(unitdat.Timestamp)
+    unitdat.Timestamp = unitdat.Timestamp.apply(lambda x: x.time())
+    unitdat.Timestamp = unitdat.Team.astype(str)
     unitdat[['Minion', 'Archer',
              'Lancer', 'Pikeman',
              'Trebuchet', 'Knight', 'Advanced Knight']] = unitdat[['Minion', 'Archer',
@@ -127,7 +127,7 @@ def teamResourcePlot(df, team='red', p=True):
     df = df.loc[df.Food >= 0].copy()
     
     # Set time to be index for automatic plots crossed with time
-    df.set_index(df[0], inplace=True)
+    df.set_index(df.Timestamp, inplace=True)
     
     if p:
         fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(19,14) )
@@ -170,7 +170,7 @@ def ecoIndexPlot(df, w=[1, 1.2, 0.7, 0.85, 1.35]):
     Returns a matplotlib figure and axes, and plots the figure. 
     '''
     df['Econ'] = (w[0]*df.Food_Prod*df.Food + w[1]*df.Lumber_Prod*df.Lumber + w[2]*df.Stone_Prod*df.Stone + w[3]*df.Iron_Prod*df.Iron + w[4]*df.Gold_Prod*df.Gold)/(5000*len(w))
-    df.set_index(df[0], inplace=True)
+    df.set_index(df.Timestamp, inplace=True)
     # Trim the df before the townhall is placed.
     df = df.loc[df.Food_Prod >= 5].copy()
 
@@ -203,10 +203,10 @@ def teamTroopPlot(df, team='red'):
     # Copy the data for this team only
     df = df.loc[df.Team == team].copy()
     # Set time to be index for automatic plots crossed with time
-    df.set_index(df[0], inplace=True)
+    df.set_index(df.Timestamp, inplace=True)
     
     fig, ax = plt.subplots(figsize=(19,7))
-    ax = df.plot(ax=ax, y=['Minion', 'Archer', 'Lancer', 'Pikeman', 'Trebuchet', 'Knight', 'Paladin'],
+    ax = df.plot(ax=ax, y=['Minion', 'Archer', 'Lancer', 'Pikeman', 'Trebuchet', 'Knight', 'Advanced Knight'],
                  color=['brown', 'red', 'g', 'k', 'gold', 'grey', 'cyan'])
     
     ax.set_title('{} Team Troops\n'.format(team.title()), fontsize=24)
@@ -231,8 +231,8 @@ def troopIndexPlot(df, w=[1, 1, 1, 1, 0, 1, 1]):
     df['Power'] = w[0]*df.Minion + w[1]*df.Archer +         \
                   w[2]*df.Lancer + w[3]*df.Pikeman +        \
                   w[4]*df.Trebuchet +                       \
-                  w[5]*df.Knight + w[6]*df.Paladin
-    df.set_index(df[0], inplace=True)
+                  w[5]*df.Knight + w[6]*df['Advanced Knight']
+    df.set_index(df.Timestamp, inplace=True)
 
     # initiate the plot
     fig, ax = plt.subplots(figsize=(19,7))
