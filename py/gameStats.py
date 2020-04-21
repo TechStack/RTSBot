@@ -87,12 +87,8 @@ def readGameLog(file):
     unitdat.columns = units_columns
     unitdat.Timestamp = pd.to_datetime(unitdat.Timestamp)
     unitdat.Timestamp = unitdat.Timestamp.apply(lambda x: x.time())
-    unitdat.Timestamp = unitdat.Team.astype(str)
-    unitdat[['Minion', 'Archer',
-             'Lancer', 'Pikeman',
-             'Trebuchet', 'Knight', 'Advanced Knight']] = unitdat[['Minion', 'Archer',
-                                                           'Lancer', 'Pikeman',
-                                                           'Trebuchet', 'Knight', 'Advanced Knight']].astype(int)
+    unitdat.Timestamp = unitdat.TeamName.astype(str)
+
     logging.info('Troops: \n{}'.format(ecodat.dtypes))
 
     return ecodat, builddat, unitdat
@@ -130,7 +126,7 @@ def teamResourcePlot(df, team='red', p=True):
     df = df.loc[df.Food >= 0].copy()
     
     # Set time to be index for automatic plots crossed with time
-    df.set_index(df.Timestamp, inplace=True)
+    df.set_index(df.Time, inplace=True)
     
     if p:
         fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(19,14) )
@@ -173,7 +169,7 @@ def ecoIndexPlot(df, w=[1, 1.2, 0.7, 0.85, 1.35]):
     Returns a matplotlib figure and axes, and plots the figure. 
     '''
     df['Econ'] = (w[0]*df.Food_Prod*df.Food + w[1]*df.Lumber_Prod*df.Lumber + w[2]*df.Stone_Prod*df.Stone + w[3]*df.Iron_Prod*df.Iron + w[4]*df.Gold_Prod*df.Gold)/(5000*len(w))
-    df.set_index(df.Timestamp, inplace=True)
+    df.set_index(df.Time, inplace=True)
     # Trim the df before the townhall is placed.
     df = df.loc[df.Food_Prod >= 5].copy()
 
@@ -209,7 +205,7 @@ def teamTroopPlot(df, team='red'):
     df.set_index(df.Timestamp, inplace=True)
     
     fig, ax = plt.subplots(figsize=(19,7))
-    ax = df.plot(ax=ax, y=['Minion', 'Archer', 'Lancer', 'Pikeman', 'Trebuchet', 'Knight', 'Advanced Knight'],
+    ax = df.plot(ax=ax, y=list(df.columns)[2:],
                  color=['brown', 'red', 'g', 'k', 'gold', 'grey', 'cyan'])
     
     ax.set_title('{} Team Troops\n'.format(team.title()), fontsize=24)
@@ -234,7 +230,7 @@ def troopIndexPlot(df, w=[1, 1, 1, 1, 0, 1, 1]):
     df['Power'] = w[0]*df.Minion + w[1]*df.Archer +         \
                   w[2]*df.Lancer + w[3]*df.Pikeman +        \
                   w[4]*df.Trebuchet +                       \
-                  w[5]*df.Knight + w[6]*df['Advanced Knight']
+                  w[5]*df.Knight + w[6]*df.AdvancedKnight
     df.set_index(df.Timestamp, inplace=True)
 
     # initiate the plot
@@ -271,7 +267,12 @@ if __name__ == "__main__":
     print('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=')
     logging.info('Program start.')
 
-    ecodat, builddat, unitdat = readGameLog(file)
+    ecodat, builddat, unitdat = readGameLog('latest.log')
+    fig, ax = ecoIndexPlot(ecodat)
+    fig.savefig('0_Econ_Summary.png')
+
+    fig, ax = troopIndexPlot(unitdat)
+    fig.savefig('1_Military_Summary.png')
 
     # for team in ['red', 'blue', 'yellow', 'green']:
     #     if wasInMatch(ecodat, team):
@@ -287,8 +288,3 @@ if __name__ == "__main__":
 
     # fig, ax = troopIndexPlot(unitdat)
     # fig.savefig(os.path.join('.', 'out', 'Military_Summary.png'))
-
-
-
-
-
