@@ -51,9 +51,9 @@ def readGameLog(file):
             # At the beginning of the match, each player joins a team
             # TODO: Grab the player names in the match.
             elif 'BUILDINGSTATS-HEADER:' in line:
-                building_columns = line.split(sep='HEADER:')[1].split(sep=',')
+                building_columns = line.split(sep='HEADER: ')[1].split(sep=', ')
             elif 'UNITSTATUS-HEADER:' in line:
-                units_columns = line.split(sep='HEADER:')[1].split(sep=',')
+                units_columns = line.split(sep='HEADER: ')[1].split(sep=', ')
                 
                 
                 
