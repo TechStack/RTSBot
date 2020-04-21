@@ -204,7 +204,7 @@ def teamTroopPlot(df, team='red'):
     Returns a matplotlib figure and axes, and plots the figure.
     '''
     # Copy the data for this team only
-    df = df.loc[df.Team == team].copy()
+    df = df.loc[df.TeamName == team].copy()
     # Set time to be index for automatic plots crossed with time
     df.set_index(df.Timestamp, inplace=True)
     
@@ -241,7 +241,7 @@ def troopIndexPlot(df, w=[1, 1, 1, 1, 0, 1, 1]):
     fig, ax = plt.subplots(figsize=(19,7))
 
     # group the df by team, and add each one to the axes with the appropriate color
-    for name, group in df.groupby(df.Team):
+    for name, group in df.groupby(df.TeamName):
         group.Power.plot(ax=ax, color=name[:1], label=name)
 
 
