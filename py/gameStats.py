@@ -203,6 +203,7 @@ def teamTroopPlot(df, team='red'):
     df = df.loc[df.TeamName == team].copy()
     # Set time to be index for automatic plots crossed with time
     df.set_index(df.Timestamp, inplace=True)
+    print(df)
     
     fig, ax = plt.subplots(figsize=(19,7))
     ax = df.plot(ax=ax, y=list(df.columns)[2:])
