@@ -70,16 +70,17 @@ def readGameLog(file):
     ecodat.Time = pd.to_datetime(ecodat.Time)
     ecodat.Time = ecodat.Time.apply(lambda x: x.time())
     ecodat.Team = ecodat.Team.astype(str)
-    ecodat[['Food_Prod', 'Lumber_Prod', 'Stone_Prod', 'Iron_Prod']] = ecodat[['Food_Prod', 'Lumber_Prod', 'Stone_Prod', 'Iron_Prod']].astype(int)
-    ecodat[['Gold_Prod', 'Diamond_Prod', 'Emerald_Prod']] = ecodat[['Gold_Prod', 'Diamond_Prod', 'Emerald_Prod']].astype(int)
-    ecodat[['Food', 'Lumber', 'Stone', 'Iron']] = ecodat[['Food', 'Lumber', 'Stone', 'Iron']].astype(int)
-    ecodat[['Gold', 'Diamonds', 'Emeralds']] = ecodat[['Gold', 'Diamonds', 'Emeralds']].astype(int)
+    for col in list(ecodat.columns)[2:]:
+        ecodat[col] = ecodat[col].astype(int)
     logging.info('Econ: \n{}'.format(ecodat.dtypes))
 
     builddat = data.append(temp2)
     builddat.columns = building_columns
     builddat.Timestamp = pd.to_datetime(builddat.Timestamp)
     builddat.Timestamp = builddat.Timestamp.apply(lambda x: x.time())
+    builddat.TeamName = builddat.TeamName.astype(str)
+    for col in list(builddat.columns)[2:]:
+        builddat[col] = builddat[col].astype(int)
     logging.info('Buildings: \n{}'.format(builddat.dtypes))
 
 
@@ -87,7 +88,9 @@ def readGameLog(file):
     unitdat.columns = units_columns
     unitdat.Timestamp = pd.to_datetime(unitdat.Timestamp)
     unitdat.Timestamp = unitdat.Timestamp.apply(lambda x: x.time())
-    unitdat.Timestamp = unitdat.TeamName.astype(str)
+    unitdat.TeamName = unitdat.TeamName.astype(str)
+    for col in list(unitdat.columns)[2:]:
+        unitdat[col] = unitdat[col].astype(int)
 
     logging.info('Troops: \n{}'.format(ecodat.dtypes))
 
@@ -203,8 +206,6 @@ def teamTroopPlot(df, team='red'):
     df = df.loc[df.TeamName == team].copy()
     # Set time to be index for automatic plots crossed with time
     df.set_index(df.Timestamp, inplace=True)
-    with pd.option_context('display_max_columns', 100):
-        print(df.head(15))
     
     fig, ax = plt.subplots(figsize=(19,7))
     ax = df.plot(ax=ax, y=list(df.columns)[2:])
@@ -231,7 +232,7 @@ def troopIndexPlot(df, w=[1, 1, 1, 1, 0, 1, 1]):
     df['Power'] = w[0]*df.Minion + w[1]*df.Archer +         \
                   w[2]*df.Lancer + w[3]*df.Pikeman +        \
                   w[4]*df.Trebuchet +                       \
-                  w[5]*df.Knight + w[6]*df.AdvancedKnight
+                  w[5]*df.Knight + w[6]*df['Advanced Knight']
     df.set_index(df.Timestamp, inplace=True)
 
     # initiate the plot
@@ -272,20 +273,15 @@ if __name__ == "__main__":
     fig, ax = ecoIndexPlot(ecodat)
     fig.savefig('0_Econ_Summary.png')
 
-    fig, ax = troopIndexPlot(unitdat)
-    fig.savefig('1_Military_Summary.png')
 
-    # for team in ['red', 'blue', 'yellow', 'green']:
-    #     if wasInMatch(ecodat, team):
-    #         fig, ax = teamResourcePlot(ecodat, team=team, p=True)
-    #         fig.savefig(os.path.join('.', 'out', '{}_Resources.png'.format(team)))
+    for team in ['red', 'blue', 'yellow', 'green']:
+        if wasInMatch(ecodat, team):
+            fig, ax = teamResourcePlot(ecodat, team=team, p=True)
+            fig.savefig('{}_Resources.png'.format(team))
 
-    #         fig, ax = teamTroopPlot(unitdat, team=team)
-    #         fig.savefig(os.path.join('.', 'out', '{}_Troops.png'.format(team)))
+            fig, ax = teamTroopPlot(unitdat, team=team)
+            fig.savefig('{}_Troops.png'.format(team))
 
         
-    # fig, ax = ecoIndexPlot(ecodat)
-    # fig.savefig(os.path.join('.', 'out', 'Econ_Summary.png'))
-
-    # fig, ax = troopIndexPlot(unitdat)
-    # fig.savefig(os.path.join('.', 'out', 'Military_Summary.png'))
+    fig, ax = troopIndexPlot(unitdat)
+    fig.savefig('1_Military_Summary.png')
