@@ -204,7 +204,7 @@ def teamTroopPlot(df, team='red'):
     # Set time to be index for automatic plots crossed with time
     df.set_index(df.Timestamp, inplace=True)
     with pd.option_context('display_max_columns', 100):
-        print(pd.head(15))
+        print(df.head(15))
     
     fig, ax = plt.subplots(figsize=(19,7))
     ax = df.plot(ax=ax, y=list(df.columns)[2:])
