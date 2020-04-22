@@ -232,7 +232,7 @@ def troopIndexPlot(df, w=[1, 1, 1, 1, 0, 1, 1]):
     df['Power'] = w[0]*df.Minion + w[1]*df.Archer +         \
                   w[2]*df.Lancer + w[3]*df.Pikeman +        \
                   w[4]*df.Trebuchet +                       \
-                  w[5]*df.Knight + w[6]*df['Advanced Knight']
+                  w[5]*df.Knight + w[6]*df['AdvancedKnight']
     df.set_index(df.Timestamp, inplace=True)
 
     # initiate the plot
