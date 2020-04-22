@@ -205,8 +205,7 @@ def teamTroopPlot(df, team='red'):
     df.set_index(df.Timestamp, inplace=True)
     
     fig, ax = plt.subplots(figsize=(19,7))
-    ax = df.plot(ax=ax, y=list(df.columns)[2:],
-                 color=['brown', 'red', 'g', 'k', 'gold', 'grey', 'cyan'])
+    ax = df.plot(ax=ax, y=list(df.columns)[2:])
     
     ax.set_title('{} Team Troops\n'.format(team.title()), fontsize=24)
     ax.set_xlabel(None)
