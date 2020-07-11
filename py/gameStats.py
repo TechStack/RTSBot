@@ -133,8 +133,8 @@ def teamResourcePlot(df, team='red', p=True):
     
     if p:
         fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(19,14) )
-        ax1 = df.plot(ax=axes[0], y=['Food', 'Lumber', 'Stone', 'Iron', 'Gold'], color=['orange', 'g', 'k', 'grey', 'gold'])
-        ax2 = df.plot(ax=axes[1], y=['Food_Prod', 'Lumber_Prod', 'Stone_Prod', 'Iron_Prod', 'Gold_Prod'], color=['orange', 'g', 'k', 'grey', 'gold'], style=':')
+        ax1 = df.plot(ax=axes[0], y=['Food', 'Lumber', 'Stone', 'Iron', 'Gold', 'Diamonds', 'Emeralds'], color=['orange', 'g', 'k', 'grey', 'gold', 'cyan', 'lime'])
+        ax2 = df.plot(ax=axes[1], y=['Food_Prod', 'Lumber_Prod', 'Stone_Prod', 'Iron_Prod', 'Gold_Prod', 'Diamond_Prod'], color=['orange', 'g', 'k', 'grey', 'gold', 'cyan'], style=':')
         
         ax1.set_title('{} Team Resources\n'.format(team.title()), fontsize=24)
         ax1.set_xlabel(None)
@@ -163,7 +163,7 @@ def teamResourcePlot(df, team='red', p=True):
     return fig, ax1
 
 
-def ecoIndexPlot(df, w=[1, 1.2, 0.7, 0.85, 1.35]):
+def ecoIndexPlot(df, w=[1, 1.2, 0.7, 0.85, 1.35, 1.2]):
     '''
     This function creates a plot representing the Economic Power of each team during the match.
     The economic index is calculated as the sum of each resource production, times its stored amount, times its weight.
@@ -171,7 +171,13 @@ def ecoIndexPlot(df, w=[1, 1.2, 0.7, 0.85, 1.35]):
     
     Returns a matplotlib figure and axes, and plots the figure. 
     '''
-    df['Econ'] = (w[0]*df.Food_Prod*df.Food + w[1]*df.Lumber_Prod*df.Lumber + w[2]*df.Stone_Prod*df.Stone + w[3]*df.Iron_Prod*df.Iron + w[4]*df.Gold_Prod*df.Gold)/(5000*len(w))
+    df['Econ'] = (   w[0]*df.Food_Prod*df.Food      + \
+                     w[1]*df.Lumber_Prod*df.Lumber  + \
+                     w[2]*df.Stone_Prod*df.Stone    + \
+                     w[3]*df.Iron_Prod*df.Iron      + \
+                     w[4]*df.Gold_Prod*df.Gold      + \
+                     w[5]*df.Diamond_Prod*df.Diamonds \
+                )/(5000*len(w))
     df.set_index(df.Time, inplace=True)
     # Trim the df before the townhall is placed.
     df = df.loc[df.Food_Prod >= 5].copy()
@@ -222,17 +228,19 @@ def teamTroopPlot(df, team='red'):
     return fig, ax
 
 
-def troopIndexPlot(df, w=[1, 1, 1, 1, 0, 1, 1]):
+def troopIndexPlot(df):
     '''
     This function creates a plot representing the Military Power of each team during the match.
     The military power is calculated as the sum of 
     '''
     # Index formula
     # (backslashes just signify continuation on the next line.)
-    df['Power'] = w[0]*df.Minion + w[1]*df.Archer +         \
-                  w[2]*df.Lancer + w[3]*df.Pikeman +        \
-                  w[4]*df.Trebuchet +                       \
-                  w[5]*df.Knight + w[6]*df['AdvancedKnight']
+    df['Power'] = df.Minion + df.Archer            +\
+                  df.Lancer + df.Pikeman           +\
+                  df.Trebuchet                     +\
+                  df.Knight + df['AdvancedKnight'] +\
+                  df.Longbowmen + df.Crossbowmen   +\
+                  df.Sapper
     df.set_index(df.Timestamp, inplace=True)
 
     # initiate the plot
@@ -245,7 +253,7 @@ def troopIndexPlot(df, w=[1, 1, 1, 1, 0, 1, 1]):
 
     ax.legend()
     ax.set_title('Military Power', fontsize=24)
-    ax.text(0.005, 0.3, s='weights={}'.format(w), transform=ax.transAxes)
+    # ax.text(0.005, 0.3, s='weights={}'.format(w), transform=ax.transAxes)
     # ax.xaxis.set_major_locator(matplotlib.ticker.LinearLocator(numticks=10))      # 10 major ticks overall
     ax.xaxis.set_minor_locator(matplotlib.ticker.AutoMinorLocator())
     # ax.xaxis.set_major_formatter(matplotlib.dates.DateFormatter('%H:%M:%S'))
