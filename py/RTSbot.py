@@ -118,6 +118,19 @@ async def gamestats(ctx):
     os.remove(os.path.join(OUT_DIR, '1_Military_Summary.png'))
 
 
+@bot.commands(name='nextmap', help='Sets the next map by name')
+@commands.check(commands.has_role('RTSBot MapControl'))
+async def nextmap(ctx, arg1):
+	os.chdir(ACTIVE_DIR)
+	folder = ACTIVE_DIR
+	response=''
+	for filename in os.listdir(ACTIVE_DIR):
+		file_path = os.path.join(folder, filename)
+		try:
+			print file_path
+			response =response + file_path
+	await ctx.send(response)
+	
 @bot.command(name='listmaps', help='Show a list of available maps to play.')
 async def listmaps(ctx):
     '''This function returns a list of the current available maps to chat.'''
