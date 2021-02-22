@@ -118,7 +118,7 @@ async def gamestats(ctx):
     os.remove(os.path.join(OUT_DIR, '1_Military_Summary.png'))
 
 
-@bot.commands(name='nextmap', help='Sets the next map by name')
+@bot.command(name='nextmap', help='Sets the next map by name')
 @commands.check(commands.has_role('RTSBot MapControl'))
 async def nextmap(ctx, arg1):
 	os.chdir(ACTIVE_DIR)
