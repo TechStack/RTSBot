@@ -151,6 +151,7 @@ async def nextmap(ctx, arg1):
 			else:
 				print ("deleting file " + file_path)
 				os.remove(file_path)
+		shutil.rmtree(ACTIVEMAP_PATH)
 		shutil.copytree(MAPS_PATH+"//"+arg1 , ACTIVEMAP_PATH)
 		response = "Your Wish is my command. Next Map to be loaded : "+ arg1
 		await ctx.send(response)
