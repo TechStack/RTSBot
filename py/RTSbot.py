@@ -127,7 +127,7 @@ async def nextmap(ctx, arg1):
 	for filename in os.listdir(ACTIVE_DIR):
 		file_path = os.path.join(folder, filename)
 		try:
-			print file_path
+			print (file_path)
 			response =response + file_path
 	await ctx.send(response)
 	
