@@ -5,6 +5,7 @@ import discord
 import random
 from discord.ext import commands
 import gameStats
+import shutil
 
 from dotenv import load_dotenv
 
@@ -129,22 +130,34 @@ def delDir(path):
 			os.rmdir(file_path)
 		else:
 			os.remove(file_path)
-			
-@bot.command(name='nextmap', help='Sets the next map by name')
+def checkifvalidmapname(map_name):
+	rtval =False
+	os.chdir(MAP_DIR)
+	response = ''
+	for folder in os.listdir():
+		if folder == map_name:
+			rtval =True
+	return rtval
+@bot.command(name='nextmap', help='Sets the next map by name Enter the exact map name in double quotes "MY MAP NAME" ')
 @commands.check(commands.has_role('RTSBot MapControl'))
 async def nextmap(ctx, arg1):
-	os.chdir(ACTIVEMAP_PATH)
-	folder = ACTIVEMAP_PATH
-	response=''
-	for filename in os.listdir(folder):
-		file_path = os.path.join(folder, filename)
-		if os.path.isdir(file_path):
-			delDir(file_path)
-		else:
-			print ("deleting file " + file_path)
-			os.remove(file_path)
-	await ctx.send(response)
-	
+	if checkifvalidmapname(arg1):
+		os.chdir(ACTIVEMAP_PATH)
+		folder = ACTIVEMAP_PATH
+		response=''
+		for filename in os.listdir(folder):
+			file_path = os.path.join(folder, filename)
+			if os.path.isdir(file_path):
+				delDir(file_path)
+			else:
+				print ("deleting file " + file_path)
+				os.remove(file_path)
+		shutil.copytree(MAPS_PATH+"//"+arg1 , ACTIVEMAP_PATH)
+		response = "Your Wish is my command. Map Loaded: "+ arg1
+		await ctx.send(response)
+	else:
+		await ctx.send("Sorry bub not a valid Map Name for : " + arg1)
+		
 @bot.command(name='listmaps', help='Show a list of available maps to play.')
 async def listmaps(ctx):
 	'''This function returns a list of the current available maps to chat.'''
