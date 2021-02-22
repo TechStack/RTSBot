@@ -27,6 +27,8 @@ OUT_DIR = os.path.join('.', 'out')
 MAP_DIR = os.path.join('..', '..', 'maps')
 ACTIVE_DIR = os.path.join('..', '..', 'activemap')
 
+ACTIVEMAP_PATH = '//home//RTS//activemap'
+MAPS_PATH = '//home//RTS//maps'
 
 
 ########################
@@ -121,10 +123,10 @@ async def gamestats(ctx):
 @bot.command(name='nextmap', help='Sets the next map by name')
 @commands.check(commands.has_role('RTSBot MapControl'))
 async def nextmap(ctx, arg1):
-	os.chdir(ACTIVE_DIR)
-	folder = ACTIVE_DIR
+	os.chdir(ACTIVEMAP_PATH)
+	folder = ACTIVEMAP_PATH
 	response=''
-	for filename in os.listdir(ACTIVE_DIR):
+	for filename in os.listdir(folder):
 		file_path = os.path.join(folder, filename)
 		print (file_path)
 		response =response + file_path
