@@ -126,9 +126,8 @@ async def nextmap(ctx, arg1):
 	response=''
 	for filename in os.listdir(ACTIVE_DIR):
 		file_path = os.path.join(folder, filename)
-		try:
-			print (file_path)
-			response =response + file_path
+		print (file_path)
+		response =response + file_path
 	await ctx.send(response)
 	
 @bot.command(name='listmaps', help='Show a list of available maps to play.')
