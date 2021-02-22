@@ -155,9 +155,10 @@ async def nextmap(ctx, arg1):
 		shutil.copytree(MAPS_PATH+"//"+arg1 , ACTIVEMAP_PATH)
 		response = "Your Wish is my command. Next Map to be loaded : "+ arg1
 		await ctx.send(response)
+		os.chdir(WORKING_DIR)
 	else:
 		await ctx.send("Sorry bub not a valid Map Name for : " + arg1)
-		
+	
 @bot.command(name='listmaps', help='Show a list of available maps to play.')
 async def listmaps(ctx):
 	'''This function returns a list of the current available maps to chat.'''
