@@ -119,7 +119,16 @@ async def gamestats(ctx):
     os.remove(os.path.join(OUT_DIR, '0_Econ_Summary.png'))
     os.remove(os.path.join(OUT_DIR, '1_Military_Summary.png'))
 
-
+	
+def delDir(path):
+	for filename in os.listdir(path):
+		print ("deleting file " + file_path)
+		if os.path.isdir(file_path):
+			delDir(file_path)
+			os.rmdir(file_path)
+		else:
+			os.remove(file_path)
+			
 @bot.command(name='nextmap', help='Sets the next map by name')
 @commands.check(commands.has_role('RTSBot MapControl'))
 async def nextmap(ctx, arg1):
@@ -128,11 +137,7 @@ async def nextmap(ctx, arg1):
 	response=''
 	for filename in os.listdir(folder):
 		file_path = os.path.join(folder, filename)
-		print ("deleting file " + file_path)
-		if os.path.isdir(file_path):
-			os.rmdir(file_path)
-		else:
-			os.remove(file_path)
+		delDir(file_path)
 		
 	await ctx.send(response)
 	
