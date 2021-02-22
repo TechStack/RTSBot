@@ -133,14 +133,13 @@ async def nextmap(ctx, arg1):
 	
 @bot.command(name='listmaps', help='Show a list of available maps to play.')
 async def listmaps(ctx):
-    '''This function returns a list of the current available maps to chat.'''
-    os.chdir(MAP_DIR)
-    response = ''
-    for folder in os.listdir():
+	'''This function returns a list of the current available maps to chat.'''
+	os.chdir(MAP_DIR)
+	response = ''
+	for folder in os.listdir():
         response += '{}\n'.format(folder)
-
-    await ctx.send(response)
-    os.chdir(WORKING_DIR)
+	await ctx.send(response)
+	os.chdir(WORKING_DIR)
 
 
 @bot.command(name='currentmap', help='Information about the currently loaded map.')
