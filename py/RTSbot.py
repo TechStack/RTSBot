@@ -122,6 +122,7 @@ async def gamestats(ctx):
 	
 def delDir(path):
 	for filename in os.listdir(path):
+		file_path = os.path.join(folder, filename)
 		print ("deleting file " + file_path)
 		if os.path.isdir(file_path):
 			delDir(file_path)
