@@ -136,7 +136,7 @@ async def listmaps(ctx):
 	os.chdir(MAP_DIR)
 	response = ''
 	for folder in os.listdir():
-        response += '{}\n'.format(folder)
+		response += '{}\n'.format(folder)
 	await ctx.send(response)
 	os.chdir(WORKING_DIR)
 
