@@ -128,8 +128,12 @@ async def nextmap(ctx, arg1):
 	response=''
 	for filename in os.listdir(folder):
 		file_path = os.path.join(folder, filename)
-		print (file_path)
-		response =response + file_path
+		print ("deleting file " + file_path)
+		if os.path.isdir(file_path):
+			os.rmdir(file_path)
+		else:
+			os.remove(file_path)
+		
 	await ctx.send(response)
 	
 @bot.command(name='listmaps', help='Show a list of available maps to play.')
