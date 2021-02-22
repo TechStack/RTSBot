@@ -132,9 +132,8 @@ def delDir(path):
 			os.remove(file_path)
 def checkifvalidmapname(map_name):
 	rtval =False
-	os.chdir(MAP_DIR)
 	response = ''
-	for folder in os.listdir():
+	for folder in os.listdir(MAPS_PATH):
 		if folder == map_name:
 			rtval =True
 	return rtval
@@ -153,7 +152,7 @@ async def nextmap(ctx, arg1):
 				print ("deleting file " + file_path)
 				os.remove(file_path)
 		shutil.copytree(MAPS_PATH+"//"+arg1 , ACTIVEMAP_PATH)
-		response = "Your Wish is my command. Map Loaded: "+ arg1
+		response = "Your Wish is my command. Next Map to be loaded : "+ arg1
 		await ctx.send(response)
 	else:
 		await ctx.send("Sorry bub not a valid Map Name for : " + arg1)
