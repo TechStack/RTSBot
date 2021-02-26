@@ -216,28 +216,28 @@ async def on_react_add(reaction , user):
 		
 @bot.command(name='votemap', help='Vote on which map to play next.')
 async def votemap(ctx):	
-    '''
-    This function initiates a vote on the map to be loaded onto the server.
+	'''
+	This function initiates a vote on the map to be loaded onto the server.
 
-    Voting is conducted with message responses.
-    Voting is limited to 11 maps (discord only has 0-10 emojis)
-    '''
+	Voting is conducted with message responses.
+	Voting is limited to 11 maps (discord only has 0-10 emojis)
+	'''
 	global mapdict
 	global mapvotestats
 	mapdict ={}
-    os.chdir(MAP_DIR)
+	os.chdir(MAP_DIR)
 
 	response = ''
 	for folder in os.listdir():
 		response = folder		
 		await msg = ctx.send(response)
 		mapdict[msg.id] = 'folder'
-		
-    await ctx.send('Respond to this message with your vote, via the thumbs up emoji')
-    await ctx.send('Sorry...Map-voting is currently unavailable, please be patient. WIP <isnert funny saying here > ')
+
+	await ctx.send('Respond to this message with your vote, via the thumbs up emoji')
+	await ctx.send('Sorry...Map-voting is currently unavailable, please be patient. WIP <isnert funny saying here > ')
 	await mapvotestats=ctx.send('Vote Stats Here : ')
 
-    os.chdir(WORKING_DIR)
+	os.chdir(WORKING_DIR)
 
 
 ########################
