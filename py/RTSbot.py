@@ -211,6 +211,7 @@ async def loadmap(name):
 @client.event
 async def on_reaction_add(reaction , user):
 	messageid = reaction.message.id	
+	print ("reaction received!")
 	if messageid in mapdict:
 		await client.sendmessage (reaction.message.channe, "reaction recorded")
 		
