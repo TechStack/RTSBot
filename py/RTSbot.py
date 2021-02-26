@@ -31,6 +31,8 @@ ACTIVE_DIR = os.path.join('..', '..', 'activemap')
 ACTIVEMAP_PATH = '//home//RTS//activemap'
 MAPS_PATH = '//home//RTS//maps'
 
+mapdict={}
+mapvotestats=None
 
 ########################
 ###   Bot Commands   ###
@@ -137,6 +139,9 @@ def checkifvalidmapname(map_name):
 		if folder == map_name:
 			rtval =True
 	return rtval
+	
+	
+	
 @bot.command(name='nextmap', help='Sets the next map by name Enter the exact map name in double quotes "MY MAP NAME" ')
 @commands.check(commands.has_role('RTSBot MapControl'))
 async def nextmap(ctx, arg1):
@@ -202,20 +207,35 @@ async def loadmap(name):
     called by chat users.
     '''
     pass
-
-
+	
+@client.event
+async def on_react_add(reaction , user):
+	messageid = reaction.message.id	
+	if messageid in mapdict:
+		await client.sendmessage (reaction.message.channe, "reaction recorded")
+		
 @bot.command(name='votemap', help='Vote on which map to play next.')
-async def votemap(ctx):
+async def votemap(ctx):	
     '''
     This function initiates a vote on the map to be loaded onto the server.
 
     Voting is conducted with message responses.
     Voting is limited to 11 maps (discord only has 0-10 emojis)
     '''
+	global mapdict
+	global mapvotestats
+	mapdict ={}
     os.chdir(MAP_DIR)
 
-    await ctx.send('Respond to this message with your vote, via the appropriate emoji! Other emojis won\'t count!')
-    await ctx.send('Sorry...Map-voting is currently unavailable, please be patient.')
+	response = ''
+	for folder in os.listdir():
+		response = folder		
+		await msg = ctx.send(response)
+		mapdict[msg.id] = 'folder'
+		
+    await ctx.send('Respond to this message with your vote, via the thumbs up emoji')
+    await ctx.send('Sorry...Map-voting is currently unavailable, please be patient. WIP <isnert funny saying here > ')
+	await mapvotestats=ctx.send('Vote Stats Here : ')
 
     os.chdir(WORKING_DIR)
 
