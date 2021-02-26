@@ -230,12 +230,12 @@ async def votemap(ctx):
 	response = ''
 	for folder in os.listdir():
 		response = folder		
-		await msg = ctx.send(response)
+		msg = await ctx.send(response)
 		mapdict[msg.id] = 'folder'
 
 	await ctx.send('Respond to this message with your vote, via the thumbs up emoji')
 	await ctx.send('Sorry...Map-voting is currently unavailable, please be patient. WIP <isnert funny saying here > ')
-	await mapvotestats=ctx.send('Vote Stats Here : ')
+	mapvotestats=await ctx.send('Vote Stats Here : ')
 
 	os.chdir(WORKING_DIR)
 
