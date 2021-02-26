@@ -46,6 +46,10 @@ votecounts={}
 @bot.event
 async def on_error(event, *args, **kwargs):
     message = args[0] #Gets the message object
+    if channel is None:
+		channel = bot.get_channel(int (os.getenv('BOT_CHANNEL')))
+		print ("got NONE channel")
+		print (channel)
     await channel.send(message)
     await channel.send(traceback.format_exc())
 
@@ -219,8 +223,8 @@ async def on_raw_reaction_add(payload):
 	global votecounts
 	global channel
 	if channel is None:
-		channel = client.get_channel(int (os.getenv('BOT_CHANNEL')))
-		print ("got channel")
+		channel = bot.get_channel(int (os.getenv('BOT_CHANNEL')))
+		print ("got NONE channel")
 		print (channel)
 	messageid = payload.message_id
 	print ("reaction received!")
