@@ -220,6 +220,8 @@ async def on_raw_reaction_add(payload):
 	global channel
 	if channel is None:
 		channel = client.get_channel(os.getenv('BOT_CHANNEL'))
+		print ("got channel")
+		print (channel)
 	messageid = payload.message_id
 	print ("reaction received!")
 	if messageid in mapdict:
