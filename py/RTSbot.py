@@ -34,6 +34,7 @@ MAPS_PATH = '//home//RTS//maps'
 mapdict={}
 mapvotestats=None
 
+client =discord.Client()
 ########################
 ###   Bot Commands   ###
 ########################
