@@ -34,7 +34,7 @@ MAPS_PATH = '//home//RTS//maps'
 mapdict={}
 mapvotestats=None
 
-client =discord.Client()
+
 ########################
 ###   Bot Commands   ###
 ########################
@@ -209,7 +209,7 @@ async def loadmap(name):
     '''
     pass
 	
-@client.event
+@bot.event
 async def on_raw_reaction_add(payload):
 	messageid = payload.message_id
 	print ("reaction received!")
@@ -247,4 +247,3 @@ async def votemap(ctx):
 ########################
 if __name__ == "__main__":
 	bot.run(TOKEN)
-	client.run(TOKEN)
