@@ -209,7 +209,7 @@ async def loadmap(name):
     pass
 	
 @client.event
-async def on_react_add(reaction , user):
+async def on_reaction_add(reaction , user):
 	messageid = reaction.message.id	
 	if messageid in mapdict:
 		await client.sendmessage (reaction.message.channe, "reaction recorded")
