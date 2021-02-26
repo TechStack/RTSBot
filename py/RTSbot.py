@@ -49,7 +49,7 @@ async def on_error(event, *args, **kwargs):
     message = args[0] #Gets the message object
     if channel is None:
         channel = bot.get_channel(int (os.getenv('BOT_CHANNEL')))
-        print ("got NONE channel")
+        print ("got NONE channel")z
         print (channel)
     await channel.send("""On NO ! I've Done it again. I've made a mess! Self-destruct in 3 , 2  1 ...\n ERROR:\n """)
     await channel.send(message)
@@ -239,8 +239,8 @@ async def on_raw_reaction_add(payload):
             if value >0:
                 messageText = messageText  + "{} has {} votes.\n ".format(mapdict[key], value)
 
-    msg = await channel.fetch_message(mapvotestats )
-    msg.edit(content=messageText)
+        msg = await channel.fetch_message(mapvotestats )
+        msg.edit(content=messageText)
     # if it is none assume a vote was not actually started i guess 
 		
 @bot.command(name='votemap', help='Vote on which map to play next.')
