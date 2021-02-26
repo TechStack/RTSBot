@@ -45,6 +45,7 @@ votecounts={}
 ########################
 @bot.event
 async def on_error(event, *args, **kwargs):
+    global channel
     message = args[0] #Gets the message object
     if channel is None:
         channel = bot.get_channel(int (os.getenv('BOT_CHANNEL')))
