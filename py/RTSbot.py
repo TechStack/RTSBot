@@ -33,7 +33,7 @@ MAPS_PATH = '//home//RTS//maps'
 
 mapdict={}
 mapvotestats=None
-
+votecounts={}
 
 ########################
 ###   Bot Commands   ###
@@ -211,10 +211,17 @@ async def loadmap(name):
 	
 @bot.event
 async def on_raw_reaction_add(payload):
+	global votecounts
 	messageid = payload.message_id
 	print ("reaction received!")
 	if messageid in mapdict:
-		await client.sendmessage (reaction.message.channe, "reaction recorded")
+		votecounts[messageid]=votecounts[messageid]+1
+	
+	messageText = ''
+	for key, value in votecounts.items():
+		messageText = messageText  + "{} has {} botes.\n ".format(mapdict[key], value)
+	msg = await bot.get_message(channel, messageid)	
+	msg.edit(content=messageText)
 		
 @bot.command(name='votemap', help='Vote on which map to play next.')
 async def votemap(ctx):	
@@ -226,7 +233,9 @@ async def votemap(ctx):
 	'''
 	global mapdict
 	global mapvotestats
+	global votecounts
 	mapdict ={}
+	votecounts={}
 	os.chdir(MAP_DIR)
 
 	response = ''
@@ -234,6 +243,7 @@ async def votemap(ctx):
 		response = folder		
 		msg = await ctx.send(response)
 		mapdict[msg.id] = 'folder'
+		votecounts[msg.id]= 0
 
 	await ctx.send('Respond to this message with your vote, via the thumbs up emoji')
 	await ctx.send('Sorry...Map-voting is currently unavailable, please be patient. WIP <isnert funny saying here > ')
