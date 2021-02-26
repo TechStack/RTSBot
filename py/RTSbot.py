@@ -212,6 +212,7 @@ async def loadmap(name):
 @bot.event
 async def on_raw_reaction_add(payload):
 	global votecounts
+	global channel
 	messageid = payload.message_id
 	print ("reaction received!")
 	if messageid in mapdict:
