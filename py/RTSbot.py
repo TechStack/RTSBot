@@ -219,7 +219,7 @@ async def on_raw_reaction_add(payload):
 	global votecounts
 	global channel
 	if channel is None:
-		channel = client.get_channel(os.getenv('BOT_CHANNEL'))
+		channel = client.get_channel(int (os.getenv('BOT_CHANNEL')))
 		print ("got channel")
 		print (channel)
 	messageid = payload.message_id
