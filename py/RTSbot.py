@@ -41,8 +41,8 @@ votecounts={}
 @bot.event
 async def on_error(event, *args, **kwargs):
     message = args[0] #Gets the message object
-    await event.channel.send(message)
-    await event.channel.send(traceback.format_exc())
+    await channel.send(message)
+    await channel.send(traceback.format_exc())
 
 
 @bot.command(name='nickelback', help='Better than a photograph...')
@@ -221,7 +221,7 @@ async def on_raw_reaction_add(payload):
 	messageText = ''
 	for key, value in votecounts.items():
 		messageText = messageText  + "{} has {} botes.\n ".format(mapdict[key], value)
-	msg = await bot.get_message(channel, messageid)	
+	msg = await channel.fetch_message( messageid)	
 	msg.edit(content=messageText)
 		
 @bot.command(name='votemap', help='Vote on which map to play next.')
