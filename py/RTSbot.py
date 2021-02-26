@@ -218,10 +218,11 @@ async def on_raw_reaction_add(payload):
 	if messageid in mapdict:
 		votecounts[messageid]=votecounts[messageid]+1
 	
-	messageText = ''
+	messageText = 'Vote Stats Here :\n'
 	for key, value in votecounts.items():
-		messageText = messageText  + "{} has {} botes.\n ".format(mapdict[key], value)
-	msg = await channel.fetch_message( messageid)	
+		if value >0:
+			messageText = messageText  + "{} has {} votes.\n ".format(mapdict[key], value)
+	msg = await channel.fetch_message(mapvotestats )
 	msg.edit(content=messageText)
 		
 @bot.command(name='votemap', help='Vote on which map to play next.')
