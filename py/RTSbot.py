@@ -23,6 +23,11 @@ client = discord.Client()
 channel = client.get_channel(os.getenv('BOT_CHANNEL'))
 bot = commands.Bot(command_prefix='!')
 
+
+print (os.getenv('BOT_CHANNEL'))
+print (channel)
+
+
 WORKING_DIR = os.getcwd()
 OUT_DIR = os.path.join('.', 'out')
 MAP_DIR = os.path.join('..', '..', 'maps')
