@@ -247,3 +247,4 @@ async def votemap(ctx):
 ########################
 if __name__ == "__main__":
     bot.run(TOKEN)
+	client.run(TOKEN)
