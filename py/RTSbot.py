@@ -218,6 +218,8 @@ async def loadmap(name):
 async def on_raw_reaction_add(payload):
 	global votecounts
 	global channel
+	if channel is None:
+		channel = client.get_channel(os.getenv('BOT_CHANNEL'))
 	messageid = payload.message_id
 	print ("reaction received!")
 	if messageid in mapdict:
