@@ -236,7 +236,7 @@ async def on_raw_reaction_add(payload):
 
         messageText = 'Vote Stats Here :\n'
         print(votecounts)
-        for key, value in votecounts.items():
+        for key, value in sorted_d(votecounts, key=votecounts.get).items():
             print(key)
             print(value)
             if value >0:
