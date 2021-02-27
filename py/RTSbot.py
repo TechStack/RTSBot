@@ -49,7 +49,7 @@ async def on_error(event, *args, **kwargs):
     message = args[0] #Gets the message object
     if channel is None:
         channel = bot.get_channel(int (os.getenv('BOT_CHANNEL')))
-        print ("got NONE channel")z
+        print ("got NONE channel")
         print (channel)
     await channel.send("""On NO ! I've Done it again. I've made a mess! Self-destruct in 3 , 2  1 ...\n ERROR:\n """)
     await channel.send(message)
