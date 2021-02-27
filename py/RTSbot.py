@@ -235,6 +235,7 @@ async def on_raw_reaction_add(payload):
             votecounts[messageid]=votecounts[messageid]+1
 
         messageText = 'Vote Stats Here :\n'
+        print(votecounts)
         for key, value in votecounts.items():
             if value >0:
                 messageText = messageText  + "{} has {} votes.\n ".format(mapdict[key], value)
@@ -262,7 +263,7 @@ async def votemap(ctx):
 	for folder in os.listdir():
 		response = folder		
 		msg = await ctx.send(response)
-		mapdict[msg.id] = 'folder'
+		mapdict[msg.id] = folder
 		votecounts[msg.id]= 0
 
 	await ctx.send('Respond to this message with your vote, via the thumbs up emoji')
