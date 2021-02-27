@@ -240,7 +240,7 @@ async def on_raw_reaction_add(payload):
                 messageText = messageText  + "{} has {} votes.\n ".format(mapdict[key], value)
 
         msg = await channel.fetch_message(mapvotestats.id )
-        msg.edit(content=messageText)
+        await msg.edit(content=messageText)
     # if it is none assume a vote was not actually started i guess 
 		
 @bot.command(name='votemap', help='Vote on which map to play next.')
