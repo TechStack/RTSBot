@@ -237,6 +237,7 @@ async def on_raw_reaction_add(payload):
         messageText = 'Vote Stats Here :\n'
         print(votecounts)
         for key, value in votecounts.items():
+            print(value)
             if value >0:
                 messageText = messageText  + "{} has {} votes.\n ".format(mapdict[key], value)
 
