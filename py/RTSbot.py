@@ -262,15 +262,15 @@ async def votemap(ctx):
     os.chdir(MAP_DIR)
     dirlist =os.listdir()
     count = len (dirlist)
-    map1= random.randint(0, count)
-    map2= random.randint(0, count)
+    map1= random.randint(0, count-1)
+    map2= random.randint(0, count-1)
     while map2 ==map1:
-        map2= random.randint(0, count)
+        map2= random.randint(0, count-1)
 
 
-    map3= random.randint(0, count)
+    map3= random.randint(0, count-1)
     while map3 ==map1 or map2 == map1:
-        map3= random.randint(0, count)
+        map3= random.randint(0, count-1)
 
     response = ''       
     
