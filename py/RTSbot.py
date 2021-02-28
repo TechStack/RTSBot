@@ -272,23 +272,21 @@ async def votemap(ctx):
     while map3 ==map1 or map2 == map1:
         map3= random.randint(0, count)
 
-	response = ''
+    response = ''       
     
-	
     response = response+'<:one:68546f5fc3b2166f42cf90b7e23c5ae9>'+dirlist[map1] + '\n'
     response = response+'<:two:eb29ce5fcf54bc3b23ff77039a4ecf3c>'+dirlist[map2] + '\n'
     response = response+'<:three:67f896405747f26f63f09e0cb048d358>'+dirlist[map3] + '\n'
-    
-	
+
         
     msg = await ctx.send(response)
-	mapdict[msg.id] = folder
-	votecounts[msg.id]= 0
+    mapdict[msg.id] = folder
+    votecounts[msg.id]= 0
 
-	await ctx.send('Respond to this message with your vote, via the thumbs up emoji')
-	mapvotestats=await ctx.send('Vote Stats Here : ')
+    await ctx.send('Respond to this message with your vote, via the thumbs up emoji')
+    mapvotestats=await ctx.send('Vote Stats Here : ')
 
-	os.chdir(WORKING_DIR)
+    os.chdir(WORKING_DIR)
 
 
 ########################
