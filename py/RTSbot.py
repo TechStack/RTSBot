@@ -260,16 +260,32 @@ async def votemap(ctx):
 	mapdict ={}
 	votecounts={}
 	os.chdir(MAP_DIR)
+    dirlist =os.listdir()
+    count = len (dirlist)
+    map1= random.randint(0, count)
+    map2= random.randint(0, count)
+    while map2 ==map1:
+        map2= random.randint(0, count)
+
+
+    map3= random.randint(0, count)
+    while map3 ==map1 || map2 == map1:
+        map3= random.randint(0, count)
 
 	response = ''
-	for folder in os.listdir():
-		response = folder		
-		msg = await ctx.send(response)
-		mapdict[msg.id] = folder
-		votecounts[msg.id]= 0
+    
+	
+    response = response+'<:one:68546f5fc3b2166f42cf90b7e23c5ae9>'+dirlist[map1] + '\n'
+    response = response+'<:two:eb29ce5fcf54bc3b23ff77039a4ecf3c>'+dirlist[map2] + '\n'
+    response = response+'<:three:67f896405747f26f63f09e0cb048d358>'+dirlist[map3] + '\n'
+    
+	
+        
+    msg = await ctx.send(response)
+	mapdict[msg.id] = folder
+	votecounts[msg.id]= 0
 
 	await ctx.send('Respond to this message with your vote, via the thumbs up emoji')
-	await ctx.send('Sorry...Map-voting is currently unavailable, please be patient. WIP <isnert funny saying here > ')
 	mapvotestats=await ctx.send('Vote Stats Here : ')
 
 	os.chdir(WORKING_DIR)
