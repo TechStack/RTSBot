@@ -269,7 +269,7 @@ async def votemap(ctx):
 
 
     map3= random.randint(0, count)
-    while map3 ==map1 || map2 == map1:
+    while map3 ==map1 or map2 == map1:
         map3= random.randint(0, count)
 
 	response = ''
