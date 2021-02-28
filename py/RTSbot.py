@@ -248,18 +248,18 @@ async def on_raw_reaction_add(payload):
 		
 @bot.command(name='votemap', help='Vote on which map to play next.')
 async def votemap(ctx):	
-	'''
-	This function initiates a vote on the map to be loaded onto the server.
+    '''
+    This function initiates a vote on the map to be loaded onto the server.
 
-	Voting is conducted with message responses.
-	Voting is limited to 11 maps (discord only has 0-10 emojis)
-	'''
-	global mapdict
-	global mapvotestats
-	global votecounts
-	mapdict ={}
-	votecounts={}
-	os.chdir(MAP_DIR)
+    Voting is conducted with message responses.
+    Voting is limited to 11 maps (discord only has 0-10 emojis)
+    '''
+    global mapdict
+    global mapvotestats
+    global votecounts
+    mapdict ={}
+    votecounts={}
+    os.chdir(MAP_DIR)
     dirlist =os.listdir()
     count = len (dirlist)
     map1= random.randint(0, count)
