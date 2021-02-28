@@ -274,9 +274,9 @@ async def votemap(ctx):
 
     response = ''       
     
-    response = response+'<:one:68546f5fc3b2166f42cf90b7e23c5ae9>'+dirlist[map1] + '\n'
-    response = response+'<:two:eb29ce5fcf54bc3b23ff77039a4ecf3c>'+dirlist[map2] + '\n'
-    response = response+'<:three:67f896405747f26f63f09e0cb048d358>'+dirlist[map3] + '\n'
+    response = response+':one:. '+dirlist[map1] + '\n'
+    response = response+':two:. '+dirlist[map2] + '\n'
+    response = response+':three:. '+dirlist[map3] + '\n'
 
         
     msg = await ctx.send(response)
