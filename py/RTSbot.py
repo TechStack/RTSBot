@@ -280,9 +280,9 @@ async def votemap(ctx):
 
     response =response + 'React to this message with your vote, via the thumbs up emoji'+ '\n\n\n'
     msg = await ctx.send(response)
-    await msg.add_reaction(':one:68546f5fc3b2166f42cf90b7e23c5ae9')
-    await msg.add_reaction(':two:eb29ce5fcf54bc3b23ff77039a4ecf3c')
-    await msg.add_reaction(':three:67f896405747f26f63f09e0cb048d358')
+    await msg.add_reaction('<:one:68546f5fc3b2166f42cf90b7e23c5ae9>')
+    await msg.add_reaction('<:two:eb29ce5fcf54bc3b23ff77039a4ecf3c>')
+    await msg.add_reaction('<:three:67f896405747f26f63f09e0cb048d358>')
 
     #mapdict[msg.id] = folder
     #votecounts[msg.id]= 0    
