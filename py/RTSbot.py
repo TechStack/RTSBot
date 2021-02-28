@@ -280,8 +280,8 @@ async def votemap(ctx):
 
         
     msg = await ctx.send(response)
-    mapdict[msg.id] = folder
-    votecounts[msg.id]= 0
+    #mapdict[msg.id] = folder
+    #votecounts[msg.id]= 0
 
     await ctx.send('Respond to this message with your vote, via the thumbs up emoji')
     mapvotestats=await ctx.send('Vote Stats Here : ')
