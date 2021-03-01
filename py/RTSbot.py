@@ -234,7 +234,7 @@ async def on_raw_reaction_add(payload):
         messageid = payload.message_id
         print ("Reaction received for Emoji!")
         voteEmoji=payload.emoji
-        print ("Vote was for : " +voteEmoji)
+        print ("Vote was for : " +str(voteEmoji))
         if voteEmoji in mapdict:
             votecounts[voteEmoji]=votecounts[voteEmoji]+1
 
