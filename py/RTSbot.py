@@ -231,10 +231,10 @@ async def on_raw_reaction_add(payload):
     if mapvotestats is not None:
         messageid = payload.message_id
         print ("Reaction received for Emoji!")
-        print (payload.emoji)
+        voteEmoji=payload.emoji
 
-        if messageid in mapdict:
-            votecounts[messageid]=votecounts[messageid]+1
+        if voteEmoji in mapdict:
+            votecounts[voteEmoji]=votecounts[voteEmoji]+1
 
         messageText = 'Vote Stats Here :\n'
         print(votecounts)
@@ -282,15 +282,19 @@ async def votemap(ctx):
 
     response =response + 'React to this message with your vote, via the thumbs up emoji'+ '\n\n\n'
     msg = await ctx.send(response)
-    emoji =  '1️⃣'
-    await msg.add_reaction(emoji)
-    emoji =  '2️⃣'
-    await msg.add_reaction(emoji)
-    emoji =  '3️⃣'
-    await msg.add_reaction(emoji)
-
-    #mapdict[msg.id] = folder
-    #votecounts[msg.id]= 0    
+    emoji1 =  '1️⃣'
+    await msg.add_reaction(emoji1)
+    emoji2 =  '2️⃣'
+    await msg.add_reaction(emoji2)
+    emoji3 =  '3️⃣'
+    await msg.add_reaction(emoji3)
+    
+    mapdict[emoji1] = dirlist[map1]
+    mapdict[emoji2] = dirlist[map2]
+    mapdict[emoji3] = dirlist[map3]
+    votecounts[emoji1]= 0    
+    votecounts[emoji2]= 0    
+    votecounts[emoji3]= 0    
     mapvotestats=await ctx.send('Vote Stats Here : ')
 
     os.chdir(WORKING_DIR)
