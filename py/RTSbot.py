@@ -219,7 +219,39 @@ async def loadmap(name):
     called by chat users.
     '''
     pass
-	
+@bot.event
+async def on_raw_reaction_remove(payload):
+    global votecounts
+    global channel
+    global mapdict
+    global mapvotestats
+    if channel is None:
+        channel = bot.get_channel(int (os.getenv('BOT_CHANNEL')))
+        print ("got NONE channel")
+        print (channel)
+    if mapvotestats is not None:
+        messageid = payload.message_id
+        print ("Reaction received for Emoji!")
+        voteEmoji=str(payload.emoji)
+        print ("Vote was for : " +str(voteEmoji))
+        if voteEmoji in votecounts:
+            print ("VoteEmoji was in votecounts")
+            votecounts[voteEmoji]=votecounts[voteEmoji]-1
+
+        messageText = 'Vote Stats Here :\n'
+        print(votecounts)
+        for key, value in sorted(votecounts.items(), key=lambda item:item[1],reverse=True):
+            print(key)
+            print(value)
+            if value >0:
+                messageText = messageText  + "{} has {} votes.\n ".format(mapdict[key], value)
+
+        msg = await channel.fetch_message(mapvotestats.id )
+        await msg.edit(content=messageText)
+    # if it is none assume a vote was not actually started i guess 
+
+
+
 @bot.event
 async def on_raw_reaction_add(payload):
     global votecounts
