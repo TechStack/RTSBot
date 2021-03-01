@@ -315,7 +315,7 @@ async def votemap(ctx):
     response = response+':two:: '+dirlist[map2] + '\n'
     response = response+':three:: '+dirlist[map3] + '\n'
 
-    response =response + 'React to this message with your vote, via the thumbs up emoji'+ '\n\n\n'
+    response =response + 'React to this message with your vote!'+ '\n\n\n'
     msg = await ctx.send(response)
     emoji1 =  '1️⃣'
     await msg.add_reaction(emoji1)
