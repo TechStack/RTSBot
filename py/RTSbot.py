@@ -233,7 +233,7 @@ async def on_raw_reaction_add(payload):
     if mapvotestats is not None:
         messageid = payload.message_id
         print ("Reaction received for Emoji!")
-        voteEmoji=payload.emoji
+        voteEmoji=str(payload.emoji)
         print ("Vote was for : " +str(voteEmoji))
         if voteEmoji in votecounts:
             print ("VoteEmoji was in votecounts")
