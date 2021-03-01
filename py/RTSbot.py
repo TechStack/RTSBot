@@ -230,7 +230,9 @@ async def on_raw_reaction_add(payload):
         print (channel)
     if mapvotestats is not None:
         messageid = payload.message_id
-        print ("reaction received!")
+        print ("Reaction received for Emoji!")
+        print (payload.emoji)
+
         if messageid in mapdict:
             votecounts[messageid]=votecounts[messageid]+1
 
