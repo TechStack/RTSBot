@@ -224,6 +224,8 @@ async def loadmap(name):
 async def on_raw_reaction_add(payload):
     global votecounts
     global channel
+    global mapdict
+    global mapvotestats
     if channel is None:
         channel = bot.get_channel(int (os.getenv('BOT_CHANNEL')))
         print ("got NONE channel")
